@@ -8,12 +8,15 @@ import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "./global.css";
 import { LoadingProvider } from "./context/loadingProvider";
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <BrowserRouter>
   <PrimeReactProvider>
     <LoadingProvider>
       <App />
     </LoadingProvider>
   </PrimeReactProvider>
+  </BrowserRouter>
 );
