@@ -8,12 +8,16 @@ import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "./global.css";
 import { LoadingProvider } from "./context/loadingProvider";
+import store from "./app/store";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <PrimeReactProvider>
-    <LoadingProvider>
-      <App />
-    </LoadingProvider>
-  </PrimeReactProvider>
+  <Provider store={store}>
+    <PrimeReactProvider>
+      <LoadingProvider>
+        <App />
+      </LoadingProvider>
+    </PrimeReactProvider>
+  </Provider>
 );

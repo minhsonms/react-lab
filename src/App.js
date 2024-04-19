@@ -4,7 +4,7 @@ import FunctionComponent from "./view/functionComponent";
 import { Button } from "primereact/button";
 import TableEx from "./view/Table";
 import { Example } from "./view/exHook";
-
+import Counter from "./features/counter/counter";
 
 function App() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -28,6 +28,10 @@ function App() {
       <div>{selectedOption === 2 && <FunctionComponent name={"Sơn"} />}</div>
       <div>{selectedOption === 4 && <TableEx />}</div>
       <div>{selectedOption === 5 && <Example />}</div>
+      <div>
+        <h2>Test Redux</h2>
+        <Counter />
+      </div>
     </div>
   );
 }
