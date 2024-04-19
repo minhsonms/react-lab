@@ -2,12 +2,11 @@ import { InputText } from "primereact/inputtext";
 import React, { useState } from "react";
 import { FloatLabel } from "primereact/floatlabel";
 import axios from "axios";
-import { useLoading } from "../hook/useLoading";
-import LoadingComponent from "../component/loading/loadingComponent";
+import { useLoading } from "..//hook/useLoading";
 import { Button } from "primereact/button";
 
 const FunctionComponent = () => {
-  const { loading, setLoading } = useLoading();
+  const { setLoading } = useLoading();
   const [data, setData] = useState("");
   const [errorMess, setErrorMess] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -29,6 +28,7 @@ const FunctionComponent = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+    setLoading(false);
   };
 
   return (
@@ -45,17 +45,10 @@ const FunctionComponent = () => {
       </FloatLabel>
       <p>{errorMess}</p>
       <Button onClick={fetchData} label="Fetch Data" />
-
       {data && (
-        <LoadingComponent
-          loading={loading}
-          setLoading={setLoading}
-          children={
-            <div>
-              <h2>Skill: {data.name}</h2>
-            </div>
-          }
-        />
+        <div>
+          <h2>Skill: {data.name}</h2>
+        </div>
       )}
     </div>
   );

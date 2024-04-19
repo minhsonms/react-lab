@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import ClassComponent from "./view/classComponent";
 import FunctionComponent from "./view/functionComponent";
-import SimpleFunctionComponent from "./view/functionComporntUseHook";
 import { Context } from "./context/contextProvider";
 import { Button } from "primereact/button";
 import TableEx from "./view/Table";
@@ -25,10 +24,6 @@ function App() {
         label="Function Component 1"
       />
       <Button
-        onClick={() => handleOptionSelect(3)}
-        label="Function Component 2"
-      />
-      <Button
         onClick={() => handleOptionSelect(4)}
         label="Table Component"
       />
@@ -42,9 +37,6 @@ function App() {
         {selectedOption === 2 && (
           <FunctionComponent context={context} name={"Sơn"} />
         )}
-      </div>
-      <div>
-        {selectedOption === 3 && <SimpleFunctionComponent context={context} />}
       </div>
       <div>
         {selectedOption === 4 && <TableEx />}
