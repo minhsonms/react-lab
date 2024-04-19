@@ -1,36 +1,62 @@
-import React, { useState } from "react";
+import React from "react";
 import ClassComponent from "./view/classComponent";
 import FunctionComponent from "./view/functionComponent";
-import { Button } from "primereact/button";
 import TableEx from "./view/Table";
 import { Example } from "./view/exHook";
-import Counter from "./features/counter/counter";
+import PromiseComp from "./view/Promise/promise";
+import AsyncComp from "./view/Promise/asyncAwait";
+import {Route, NavLink, Switch} from 'react-router-dom';
 
 function App() {
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-  };
-
+  
   return (
-    <div>
-      <h2>Component Selector</h2>
-      <Button onClick={() => handleOptionSelect(1)} label="Class Component" />
-      <Button
-        onClick={() => handleOptionSelect(2)}
-        label="Function Component 1"
-      />
-      <Button onClick={() => handleOptionSelect(4)} label="Table Component" />
-      <Button onClick={() => handleOptionSelect(5)} label="Example Hook" />
-
-      <div>{selectedOption === 1 && <ClassComponent />}</div>
-      <div>{selectedOption === 2 && <FunctionComponent name={"Sơn"} />}</div>
-      <div>{selectedOption === 4 && <TableEx />}</div>
-      <div>{selectedOption === 5 && <Example />}</div>
-      <div>
-        <h2>Test Redux</h2>
-        <Counter />
+    <div className="app">
+      <div className="header">
+        <h3>Menu</h3>
+        <ul className="menu">
+          <li>
+            <NavLink to="/classComponent" activeClassName="active">
+            ClassComponent
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/functionComponent" activeClassName="active">
+            FunctionComponent
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/tableEx" activeClassName="active">
+            TableEx
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/example" activeClassName="active">
+            Example
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/promiseComp" activeClassName="active">
+            PromiseComp
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/asyncComp" activeClassName="active">
+            AsyncComp
+            </NavLink>
+          </li>
+        </ul>
+        <hr />
+      </div>
+      <h3>Content</h3>
+      <div className="content">
+        <Switch>
+          <Route path="/classComponent" component={ClassComponent} />
+          <Route path="/functionComponent" component={FunctionComponent} />
+          <Route path="/tableEx" component={TableEx} />
+          <Route path="/example" component={Example} />
+          <Route path="/promiseComp" component={PromiseComp} />
+          <Route path="/asyncComp" component={AsyncComp} />
+        </Switch>
       </div>
     </div>
   );

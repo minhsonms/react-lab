@@ -1,19 +1,32 @@
 import { InputText } from "primereact/inputtext";
 import React, { useState } from "react";
 import { FloatLabel } from "primereact/floatlabel";
-import axios from "axios";
-import { useLoading } from "..//hook/useLoading";
 import { Button } from "primereact/button";
-import { useSelector } from "react-redux";
 
-const FunctionComponent = () => {
-  const { setLoading } = useLoading();
+const PromiseComp = () => {
   const [data, setData] = useState("");
   const [errorMess, setErrorMess] = useState("");
   const [inputValue, setInputValue] = useState("");
-  const countFromStore = useSelector((state) => state.counter.value);
 
-  const fetchData = async () => {
+  const fetchData = () => {
+    return new Promise((resolve, reject) => {
+      fetch(`https://pokeapi.co/api/v2/ability/${inputValue}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
+  const handleOnClick = () => {
     if (inputValue === "") {
       setErrorMess("vui long nhap");
       return;
@@ -21,21 +34,19 @@ const FunctionComponent = () => {
     if (inputValue !== "") {
       setErrorMess("");
     }
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `https://pokeapi.co/api/v2/ability/${inputValue}`
-      );
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-    setLoading(false);
+    fetchData()
+      .then((data) => {
+        setData(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
     <div>
-      <h2>Function Component</h2>
+      <h2>EX Promise</h2>
 
       <FloatLabel>
         <InputText
@@ -46,17 +57,14 @@ const FunctionComponent = () => {
         <label htmlFor="username">Enter number</label>
       </FloatLabel>
       <p>{errorMess}</p>
-      <Button onClick={fetchData} label="Fetch Data" />
+      <Button onClick={handleOnClick} label="Fetch Data" />
       {data && (
         <div>
           <h2>Skill: {data.name}</h2>
         </div>
       )}
-      <div>
-        <h2>Count value from Store: {countFromStore}</h2>
-      </div>
     </div>
   );
 };
 
-export default FunctionComponent;
+export default PromiseComp;
