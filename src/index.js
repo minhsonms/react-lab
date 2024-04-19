@@ -11,11 +11,9 @@ import { LoadingProvider } from "./context/loadingProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <PrimeReactProvider>
-      <LoadingProvider>
-        <App />
-      </LoadingProvider>
-    </PrimeReactProvider>
-  </React.StrictMode>
+  <PrimeReactProvider>
+    <LoadingProvider>
+      <App />
+    </LoadingProvider>
+  </PrimeReactProvider>
 );
